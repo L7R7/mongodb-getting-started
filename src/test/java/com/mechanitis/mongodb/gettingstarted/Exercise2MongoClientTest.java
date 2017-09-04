@@ -1,9 +1,10 @@
 package com.mechanitis.mongodb.gettingstarted;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import org.bson.BsonDocument;
+import org.bson.Document;
 import org.junit.Test;
 
 import java.net.UnknownHostException;
@@ -20,7 +21,7 @@ public class Exercise2MongoClientTest {
 
         // When
         //TODO get the database from the client
-        DB database = null;
+        MongoDatabase database = null;
 
         // Then
         assertThat(database, is(notNullValue()));
@@ -33,7 +34,7 @@ public class Exercise2MongoClientTest {
 
         // When
         // TODO get collection
-        DBCollection collection = null;
+        MongoCollection<BsonDocument> collection = null;
 
         // Then
         assertThat(collection, is(notNullValue()));
@@ -43,12 +44,12 @@ public class Exercise2MongoClientTest {
     public void shouldNotBeAbleToUseMongoClientAfterItHasBeenClosed() throws UnknownHostException {
         // Given
         MongoClient mongoClient = new MongoClient();
-        
+
         // When
         // TODO close the mongoClient
 
         // Then
-        mongoClient.getDB("SomeDatabase").getCollection("coll").insert(new BasicDBObject("field", "value"));
+        mongoClient.getDatabase("SomeDatabase").getCollection("coll").insertOne(new Document("field", "value"));
     }
 
 }
